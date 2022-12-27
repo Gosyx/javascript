@@ -78,8 +78,49 @@ while (seleccion != "si" && seleccion != "no") {
 
 if (seleccion == "si") {
   alert("A continuacion la lista de items");
-  let todoslositems = items.map((items) => items.nombre + " " + items.precio + "$");
+  let todoslositems = items.map((item) => item.nombre + " " + item.precio + "$");
   alert(todoslositems.join(" - "));
 } else if (seleccion == "no") {
   alert("Gracias por venir, hasta pronto!");
 }
+while (seleccion != "no") {
+  let item = prompt("agregar item a carrito");
+  let precio = 0;
+
+  if (item == "emotes" || item == "insignia" || item == "paneles" || item == "banner u overlay") {
+    switch (item) {
+      case "emotes":
+        precio = 5;
+        break;
+      case "insignia":
+        precio = 5;
+        break;
+      case "paneles":
+        precio = 8;
+        break;
+      case "banner u overlay":
+        precio = 10;
+        break;
+      default:
+        break;
+    }
+    let unidades = parseInt(prompt("cuantos items quiere llevar?"));
+
+    carrito.push({ item, unidades, precio });
+    console.log(carrito);
+  } else {
+    alert("no tenemos ese item");
+  }
+  seleccion = prompt("desea seguir comprando?");
+
+  while (seleccion === "no") {
+    alert("gracias por su compra!");
+    carrito.forEach((carritoFinal) => {
+      console.log(`item: ${carritoFinal.item}, unidades: ${carrito.unidades},
+    total a pagar por item ${carritoFinal.unidades * carritoFinal.precio}`);
+    });
+    break;
+  }
+}
+const total = carrito.reduce((acc, el) => acc + el.precio * el.unidades, 0);
+console.log(`el total a pagar por su compra es: ${total}`);
